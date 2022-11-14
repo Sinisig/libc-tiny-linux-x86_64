@@ -1,23 +1,20 @@
 ;----------------------------------------
 ; signal.s - Implementations for signal.i
 ;----------------------------------------
-; Created:  October  5th, 2022  8:57 PM
-; Modified: October 13th, 2022 10:00 PM
+; Created:  October   5th, 2022  8:57 PM
+; Modified: November 14th, 2022 10:05 AM
 ;----------------------------------------
 
 %include "linux64/linux.i"
 
-
    section .text
-   global kill
-kill:
-   push  rbx
-   xor   eax,eax
-   mov   al,SYS_KILL
-   syscall
-   pop   rbx
+   global __sys_sig_handler_default
+   global __sys_sig_handler_ignore
+__sys_sig_handler_default:
+__sys_sig_handler_ignore:
    ret
-;kill
+;__sys_sig_handler_default
+;__sys_sig_handler_ignore
 
    section .text
    global raise
@@ -29,33 +26,10 @@ raise:
    syscall
    mov   edi,eax
    mov   esi,ebx
-   call  kill
+   xor   eax,eax
+   mov   al,SYS_KILL
+   syscall
    pop   rbx
    ret
 ;raise
-
-   section .text
-   global abort
-abort:
-   mov   edi,SIGABRT
-   jmp   raise
-;abort
-
-   section .text
-   global signal
-signal:
-   ; TODO: Implement
-   xor   eax,eax
-   not   eax
-   ret
-;signal
-
-   section .text
-   global __sys_sig_handler_default
-   global __sys_sig_handler_ignore
-__sys_sig_handler_default:
-__sys_sig_handler_ignore:
-   ret
-;__sys_sig_handler_default
-;__sys_sig_handler_ignore
 

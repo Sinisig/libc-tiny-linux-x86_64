@@ -1,15 +1,13 @@
-;-------------------------------------
+;---------------------------------------
 ; signal.i - Signal ID definitions
-;-------------------------------------
-; Created:  October 7th, 2022 11:12 AM
-; Modified: October 7th, 2022 11:19 AM
-;-------------------------------------
+;---------------------------------------
+; Created:  October   7th, 2022 11:12 AM
+; Modified: November 14th, 2022 10:28 AM
+;---------------------------------------
 
-%ifndef LINUX64_SIGNAL_I
-%define LINUX64_SIGNAL_I
-;-----------------------
-
-
+%ifndef __LINUX64_SIGNAL_I
+%define __LINUX64_SIGNAL_I
+;-------------------------
 
 SIGHUP      equ 0x01
 SIGINT      equ 0x02
@@ -44,5 +42,6 @@ SIGPWR      equ 0x1D
 SIGSYS      equ 0x1E
 NSIG        equ 0x20
 
-%endif
+;-------------------------
+%endif ;__LINUX64_SIGNAL_I
 

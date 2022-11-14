@@ -2,7 +2,7 @@
 ; math.s - Implementations for math.i
 ;---------------------------------------
 ; Created:  October  11th, 2022  9:21 PM
-; Modified: November 13th, 2022  4:24 PM
+; Modified: November 14th, 2022 10:41 AM
 ;---------------------------------------
 
 ; !!! IMPORTANT FOR MAINTAINERS !!!
@@ -162,7 +162,7 @@ fabs:
    jmp   _fpu_pop_sd
 ;fabs
 
-;------------------------------------------------------------------------------
+;--------------------------------------
 
 ; Contained in here are helpers
 ; for reusing common code and
@@ -237,7 +237,7 @@ _fpu_pop_sd:
    ret
 ;_fpu_pop_sd
 
-;------------------------------------------------------------------------------
+;--------------------------------------
 
    section .text
    global log10

@@ -2,7 +2,7 @@
 ; math.i - Various math functions
 ;---------------------------------------
 ; Created:  October  11th, 2022  8:00 PM
-; Modified: November 13th, 2022  2:21 PM
+; Modified: November 14th, 2022 10:44 AM
 ;---------------------------------------
 
 %ifndef __LIBC_TINY_MATH_I
@@ -41,3 +41,4 @@ extern tanh    ; !!
 
 ;-------------------------
 %endif ;__LIBC_TINY_MATH_I
+

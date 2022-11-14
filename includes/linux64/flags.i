@@ -2,13 +2,13 @@
 ; flags.i - Header containing many
 ; enums and flags
 ;---------------------------------------
-; Created:  October 5th, 2022  1:23 PM
-; Modified: October 5th, 2022  2:58 PM
+; Created:  October   5th, 2022  1:23 PM
+; Modified: November 14th, 2022 10:26 AM
 ;---------------------------------------
 
-%ifndef LINUX64_FNCTL_I
-%define LINUX64_FNCTL_I
-;----------------------
+%ifndef __LINUX64_FLAGS_I
+%define __LINUX64_FLAGS_I
+;------------------------
 
 ; File open flags
 O_RDONLY    equ 0x00000000
@@ -47,6 +47,6 @@ S_IROTH  equ 0x00000004
 S_IWOTH  equ 0x00000002
 S_IXOTH  equ 0x00000001
 
-;----------------------
-%endif
+;------------------------
+%endif ;__LINUX64_FLAGS_I
 

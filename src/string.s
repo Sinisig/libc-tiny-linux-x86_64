@@ -1,10 +1,9 @@
 ;----------------------------------------
 ; string.s - Implementations for string.i
 ;----------------------------------------
-; Created:  October  5th, 2022  9:39 AM
-; Modified: October 13th, 2022 10:02 PM
+; Created:  October   5th, 2022  9:39 AM
+; Modified: November 14th, 2022  9:54 AM
 ;----------------------------------------
-
 
    section .text
    global memchr
@@ -101,12 +100,12 @@ strlen:
    
    dec   rdi
    dec   rax
-   .find_null:
+   .search:
       inc   rdi
       inc   rax
       cmp   byte [rdi],0x00   ; Null
-      jne   .find_null
-   ;search
+      jne   .search
+   ;.search
 
    ret
 ;strlen

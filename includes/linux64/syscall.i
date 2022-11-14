@@ -1,13 +1,13 @@
 ;----------------------------------------
 ; linxu64/syscall.i - Syscall definitions
 ;----------------------------------------
-; Created:  October 4th, 2022 10:19 PM
-; Modified: October 5th, 2022  7:31 PM
+; Created:  October   4th, 2022 10:19 PM
+; Modified: November 14th, 2022 10:29 AM
 ;----------------------------------------
 
-%ifndef LINUX64_SYSCALL_I
-%define LINUX64_SYSCALL_I
-;------------------------
+%ifndef __LINUX64_SYSCALL_I
+%define __LINUX64_SYSCALL_I
+;--------------------------
 
 SYS_READ                   equ 0x0000
 SYS_WRITE                  equ 0x0001
@@ -345,6 +345,6 @@ SYS_STATX                  equ 0x014C
 SYS_IO_PGETEVENTS          equ 0x014D
 SYS_RSEQ                   equ 0x014E
 
-;------------------------
-%endif
+;--------------------------
+%endif ;__LINUX64_SYSCALL_I
 

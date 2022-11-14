@@ -1,4 +1,4 @@
-# libc-tiny-linux-x86_64
+# Tiny Libc (Linux x86_64)
 A work-in-progress tiny implementation of the C Standard Library / C Runtime targetting 64-bit Intel/AMD Linux.
 
 ### Important Note
