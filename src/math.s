@@ -2,7 +2,7 @@
 ; math.s - Implementations for math.i
 ;---------------------------------------
 ; Created:  October  11th, 2022  9:21 PM
-; Modified: November 14th, 2022 10:41 AM
+; Modified: November 14th, 2022 11:35 AM
 ;---------------------------------------
 
 ; !!! IMPORTANT FOR MAINTAINERS !!!
@@ -38,22 +38,24 @@
 ; 
 ; Currently, the code is ordered as follows:
 ; sqrt   - 5 bytes
-; pow    - 35 bytes
-; fmod   - 15 bytes
-; modf   - 13 bytes
 ; exp    - 13 bytes
 ; log    - 4 bytes
+; log10  - 4 bytes
+; pow    - 35 bytes
+; asin   - 21 bytes
+; fmod   - 15 bytes
+; modf   - 13 bytes
 ; atan2  - 9 bytes
 ; floor  - 9 bytes
-; fabs   - 9 bytes 
-; ------------------
-; log10  - 4 bytes
+;-------------------
+; fabs   - 7 bytes 
+;-------------------
 ; sin    - 9 bytes
 ; cos    - 9 bytes
 ; tan    - 9 bytes
 ; atan   - 11 bytes
-; asin   - 21 bytes
 ; acos   - 29 bytes
+; ~~~ 42 bytes free ~~~
 ; 
 ; Every possible byte is used for the top
 ; without introducing 5 byte jmps, and there
@@ -66,6 +68,31 @@ sqrt:
    sqrtsd   xmm0,xmm0
    ret
 ;sqrt
+
+   section .text
+   global exp
+exp:
+   call     _fpu_push_sd
+   fldl2e
+   fmulp
+   fld1
+   fadd     st0,st0
+   jmp      pow.after_load
+;exp
+
+   section .text
+   global log
+log:
+   fldln2
+   jmp   _fpu_log2_sd
+;log
+
+   section .text
+   global log10
+log10:
+   fldlg2
+   jmp   _fpu_log2_sd
+;log10
 
    section .text
    global pow
@@ -99,6 +126,21 @@ pow:
 ;pow
 
    section .text
+   global asin
+asin:
+   ; asin(x) = atan(x/sqrt(1-x^2))
+   call  _fpu_push_sd
+   fld1
+   fld   st1
+   fld   st0
+   fmulp
+   fsubp
+   fsqrt
+   fpatan
+   jmp   _fpu_pop_sd
+;asin
+
+   section .text
    global fmod
 fmod:
    call  _fpu_push2_sd
@@ -120,25 +162,6 @@ modf:
 ;modf
 
    section .text
-   global exp
-exp:
-   call     _fpu_push_sd
-   fldl2e
-   fmulp
-   fld1
-   fadd     st0,st0
-   jmp      pow.after_load
-;exp
-
-   section .text
-   global log
-log:
-   fldln2
-   jmp   _fpu_log2_sd
-;log
-
-
-   section .text
    global atan2
 atan2:
    call     _fpu_push2_sd
@@ -153,14 +176,6 @@ floor:
    fsubp
    jmp   _fpu_pop_sd
 ;floor
-
-   section .text
-   global fabs
-fabs:
-   call  _fpu_push_sd
-   fabs
-   jmp   _fpu_pop_sd
-;fabs
 
 ;--------------------------------------
 
@@ -225,6 +240,22 @@ _fpu_push2_sd:
    jmp      _fpu_push_sd
 ;_fpu_push2_sd
 
+;--------------------------------------
+; fabs here to saves 2 bytes on the jmp
+; instruction by letting execution flow
+; into _fpu_pop_sd by itself.  It's very
+; important to not place any extra bytes
+; in here otherwise execution will break.
+;--------------------------------------
+
+   section .text
+   global fabs
+fabs:
+   call  _fpu_push_sd
+   fabs
+   ; Execution continues into _fpu_pop_sd
+;fabs
+
    section .text
    ; Input     - none
    ; Output    - 64-bit float | xmm0[0]
@@ -238,13 +269,6 @@ _fpu_pop_sd:
 ;_fpu_pop_sd
 
 ;--------------------------------------
-
-   section .text
-   global log10
-log10:
-   fldlg2
-   jmp   _fpu_log2_sd
-;log10
 
    section .text
    global sin
@@ -278,21 +302,6 @@ atan:
    fpatan
    jmp   _fpu_pop_sd
 ;atan
-
-   section .text
-   global asin
-asin:
-   ; asin(x) = atan(x/sqrt(1-x^2))
-   call  _fpu_push_sd
-   fld1
-   fld   st1
-   fld   st0
-   fmulp
-   fsubp
-   fsqrt
-   fpatan
-   jmp   _fpu_pop_sd
-;asin
 
    section .text
    global acos
