@@ -5,7 +5,7 @@
 ; Modified: November 14th, 2022  9:49 AM
 ;------------------------------------------
 
-%include "linux64/linux.i"
+%include "stdlib.i"
 
 extern main
 
@@ -23,8 +23,6 @@ _entry:
 
    ; Exit with the returned code
    mov   edi,eax
-   xor   eax,eax
-   mov   al,SYS_EXIT
-   syscall
+   jmp   exit
 ;_entry
 

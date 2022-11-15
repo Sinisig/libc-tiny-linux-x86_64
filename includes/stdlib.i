@@ -2,7 +2,7 @@
 ; stdlib.h - General library functions
 ;---------------------------------------
 ; Created:  October  14th, 2022 10:03 PM
-; Modified: November 14th, 2022 10:19 AM
+; Modified: November 15th, 2022 10:03 AM
 ;---------------------------------------
 
 %ifndef __LIBC_TINY_STDLIB_I
@@ -36,20 +36,20 @@ extern atol       ; !!
 extern strtod     ; !!
 extern strtol     ; !!
 extern strtoul    ; !!
-extern calloc     ; !!
+extern calloc
 extern free       ; !!
 extern malloc     ; !!
-extern realloc    ; !!
-extern abort      ; !!
+extern realloc
+extern abort
 extern atexit     ; !!
-extern exit       ; !!
+extern exit
 extern getenv     ; !!
 extern system     ; !!
 extern bsearch    ; !!
 extern qsort      ; !!
-extern abs        ; !!
+extern $abs
 extern div        ; !!
-extern labs       ; !!
+extern labs
 extern ldiv       ; !!
 extern rand       ; !!
 extern srand      ; !!
